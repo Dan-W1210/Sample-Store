@@ -4,10 +4,10 @@ import React from 'react';
 export default function PrivacyPolicyPage() {
   return (
     <main style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-      <h1>SAMURAI Store プライバシーポリシー</h1>
+      <h1>Sample Store プライバシーポリシー</h1>
 
       <h2>1. 基本方針</h2>
-      <p>サムライコマース株式会社（以下「当社」といいます）は、当社が運営するウェブサイト「SAMURAI Store」（以下「本サイト」といいます）におけるお客様の個人情報の重要性を認識し、個人情報保護に関する法令およびその他規範を遵守し、適切に個人情報を取り扱います。</p>
+      <p>サンプルコマース株式会社（以下「当社」といいます）は、当社が運営するウェブサイト「Sample Store」（以下「本サイト」といいます）におけるお客様の個人情報の重要性を認識し、個人情報保護に関する法令およびその他規範を遵守し、適切に個人情報を取り扱います。</p>
 
       <h2>2. 収集する個人情報とその利用目的</h2>
       <p>当社は、本サイトの運営およびサービスの提供にあたり、必要な範囲でお客様の個人情報を収集し、以下の目的で利用いたします。</p>
@@ -39,7 +39,7 @@ export default function PrivacyPolicyPage() {
 
       <h2>7. お問い合わせ窓口</h2>
       <p>個人情報に関するお問い合わせやご要望は、以下のメールアドレスまでご連絡ください。</p>
-      <p>メールアドレス: privacy@samurai-store.example.com</p>
+      <p>メールアドレス: privacy@sample-store.example.com</p>
 
       <p style={{ textAlign: 'right', marginTop: '40px' }}>最終更新日：2025年1月23日</p>
     </main>
