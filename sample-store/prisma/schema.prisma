@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+// 1. 商品テーブル
+model Product {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String?
+  price       Int
+  stock       Int         @default(0)
+  imageUrl    String?
+  salesCount  Int         @default(0)
+  isFeatured  Boolean     @default(false)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  orderItems  OrderItem[] // 注文明細との紐付け
+  reviews     Review[]    // レビューとの紐付け
+
+  @@map("products")
+}
+
+// 2. ユーザーテーブル
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  isAdmin   Boolean  @default(false)
+  enabled   Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]  // 注文履歴との紐付け
+  reviews   Review[] // レビューとの紐付け
+
+  @@map("users")
+}
+
+// 3. 注文全体テーブル
+model Order {
+  id              Int         @id @default(autoincrement())
+  userId          Int
+  totalPrice      Int
+  status          String      @default("注文受付")
+  paymentStatus   String      @default("未決済")
+  shippingAddress String
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  user            User        @relation(fields: [userId], references: [id])
+  orderItems      OrderItem[] // 注文明細との紐付け
+
+  @@map("orders")
+}
+
+// 4. 注文明細テーブル（中間テーブル）
+model OrderItem {
+  id          Int     @id @default(autoincrement())
+  orderId     Int
+  productId   Int
+  productName String
+  quantity    Int
+  unitPrice   Int
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product     Product @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
+}
+
+// 5. レビューテーブル
+model Review {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  userId    Int
+  score     Int
+  content   String
+  createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("reviews")
+}
